@@ -126,6 +126,7 @@ Collate:
     'testthat.R'
     'tidyeval-across.R'
     'tidyeval.R'
+    'trace.R'
     'translate-sql.R'
     'utils-format.R'
     'verb-arrange.R'

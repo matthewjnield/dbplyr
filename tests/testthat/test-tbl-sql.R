@@ -39,7 +39,7 @@ test_that("sql tbl can be printed", {
 test_that("can refer to default schema explicitly", {
   con <- sqlite_con_with_aux()
   on.exit(DBI::dbDisconnect(con))
-  DBI::dbExecute(con, "CREATE TABLE t1 (x)")
+  dbExecute(con, "CREATE TABLE t1 (x)")
 
   expect_equal(as.character(tbl_vars(tbl(con, "t1"))), "x")
   expect_equal(as.character(tbl_vars(tbl(con, in_schema("main", "t1")))), "x")
@@ -48,8 +48,8 @@ test_that("can refer to default schema explicitly", {
 test_that("can distinguish 'schema.table' from 'schema'.'table'", {
   con <- sqlite_con_with_aux()
   on.exit(DBI::dbDisconnect(con))
-  DBI::dbExecute(con, "CREATE TABLE aux.t1 (x, y, z)")
-  DBI::dbExecute(con, "CREATE TABLE 'aux.t1' (a, b, c)")
+  dbExecute(con, "CREATE TABLE aux.t1 (x, y, z)")
+  dbExecute(con, "CREATE TABLE 'aux.t1' (a, b, c)")
 
   expect_equal(as.character(tbl_vars(tbl(con, in_schema("aux", "t1")))), c("x", "y", "z"))
   expect_equal(as.character(tbl_vars(tbl(con, ident("aux.t1")))), c("a", "b", "c"))
